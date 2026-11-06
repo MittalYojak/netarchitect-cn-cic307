@@ -1,0 +1,23 @@
+Write engine/vlsm.py.
+
+Dataclass Subnet with fields: name, network, prefix, mask, wildcard, first_host,
+last_host, broadcast, gateway, requested_hosts, usable_hosts, efficiency_pct.
+All addresses are dotted-quad strings.
+
+Function: allocate_vlsm(root_cidr: str, requests: list[dict]) -> list[Subnet]
+where each request looks like {"name": "Staff", "hosts": 500}.
+
+Requirements:
+- Convert addresses to and from 32-bit integers manually using bitwise operations.
+  Do NOT use the ipaddress module.
+- Sort requests by host count descending.
+- For each request choose the smallest subnet that fits the requested hosts plus
+  network and broadcast addresses, and allocate non-overlapping blocks sequentially
+  starting from the root prefix.
+- Gateway = first usable host address.
+- Raise AddressSpaceExhaustedError if the root prefix cannot fit all requests.
+- Raise InvalidParameterError for a malformed CIDR or hosts <= 0.
+
+Also provide helpers: ip_to_int, int_to_ip, prefix_to_mask, mask_to_wildcard, and
+utilization_report(subnets, root_cidr) -> Decision explaining overall address-space
+efficiency (domain="VLSM").

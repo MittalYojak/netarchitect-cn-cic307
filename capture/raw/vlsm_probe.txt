@@ -1,0 +1,19 @@
+255.255.255.255 -> 0.0.0.0
+255.255.255.0 -> EXC InvalidParameterError | Invalid subnet mask: '255.255.255.0'
+255.255.254.0 -> EXC InvalidParameterError | Invalid subnet mask: '255.255.254.0'
+255.255.255.128 -> EXC InvalidParameterError | Invalid subnet mask: '255.255.255.128'
+255.255.255.192 -> EXC InvalidParameterError | Invalid subnet mask: '255.255.255.192'
+255.255.255.224 -> EXC InvalidParameterError | Invalid subnet mask: '255.255.255.224'
+255.255.255.252 -> EXC InvalidParameterError | Invalid subnet mask: '255.255.255.252'
+255.255.0.0 -> EXC InvalidParameterError | Invalid subnet mask: '255.255.0.0'
+255.0.0.0 -> EXC InvalidParameterError | Invalid subnet mask: '255.0.0.0'
+---- prefix_to_mask ----
+8 -> 255.0.0.0
+16 -> 255.255.0.0
+23 -> 255.255.254.0
+24 -> 255.255.255.0
+25 -> 255.255.255.128
+27 -> 255.255.255.224
+30 -> 255.255.255.252
+31 -> 255.255.255.254
+32 -> 255.255.255.255

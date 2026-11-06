@@ -1,0 +1,7 @@
+Subnet(name='A', network='10.0.0.0', prefix=23, mask='255.255.254.0', wildcard='0.0.1.255', first_host='10.0.0.1', last_host='10.0.1.254', broadcast='10.0.1.255', gateway='10.0.0.1', requested_hosts=500, usable_hosts=510, efficiency_pct=98.04)
+Subnet(name='B', network='10.0.2.0', prefix=25, mask='255.255.255.128', wildcard='0.0.0.127', first_host='10.0.2.1', last_host='10.0.2.126', broadcast='10.0.2.127', gateway='10.0.2.1', requested_hosts=100, usable_hosts=126, efficiency_pct=79.37)
+Subnet(name='C', network='10.0.2.128', prefix=27, mask='255.255.255.224', wildcard='0.0.0.31', first_host='10.0.2.129', last_host='10.0.2.158', broadcast='10.0.2.159', gateway='10.0.2.129', requested_hosts=30, usable_hosts=30, efficiency_pct=100.0)
+---- self-checks ----
+A size 512 ALIGNED
+B size 128 ALIGNED
+C size 32 ALIGNED

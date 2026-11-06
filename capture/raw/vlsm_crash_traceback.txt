@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from engine.vlsm import allocate_vlsm; [print(s) for s in allocate_vlsm('10.0.0.0/16', [{'name':'A','hosts':500},{'name':'B','hosts':100},{'name':'C','hosts':30}])]
+                                                              ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Yojak\netarchitect-cn-cic307\engine\vlsm.py", line 218, in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+  File "C:\Users\Yojak\netarchitect-cn-cic307\engine\vlsm.py", line 97, in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.254.0'
