@@ -1,0 +1,13 @@
+(49, 1, False, 1) -> OSPF Single-Area (Area 0)
+(50, 1, False, 1) -> Multi-Area OSPF with Area 0 backbone
+(20, 1, True, 1) -> Multi-Area OSPF with Area 0 backbone
+(20, 4, True, 2) -> eBGP (External Border Gateway Protocol)
+(20, 1, False, 2) -> eBGP (External Border Gateway Protocol)
+(20, 4, False, 3) -> eBGP (External Border Gateway Protocol)
+(0, 1, False, 1) -> EXC InvalidParameterError | num_subnets must be a positive integer, received 0.
+(-1, 1, False, 1) -> EXC InvalidParameterError | num_subnets must be a positive integer, received -1.
+(20, 0, False, 1) -> EXC InvalidParameterError | num_sites must be a positive integer, received 0.
+(20, 1, False, 0) -> EXC InvalidParameterError | num_autonomous_systems must be a positive integer, received 0.
+('abc', 1, False, 1) -> EXC InvalidParameterError | num_subnets must be a positive integer, received 'abc'.
+(20.5, 1, False, 1) -> EXC InvalidParameterError | num_subnets must be a positive integer, received 20.5.
+(True, 1, False, 1) -> EXC InvalidParameterError | num_subnets must be a positive integer, received True.

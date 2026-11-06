@@ -1,0 +1,15 @@
+Write engine/routing.py.
+
+Function: select_routing(num_subnets: int, num_sites: int, multi_cloud: bool,
+num_autonomous_systems: int = 1) -> Decision
+
+Rules:
+- Single autonomous system, single site, fewer than 50 subnets: OSPF single-area
+  (Area 0). Justification: link-state fast convergence, cite RFC 2328.
+- Multi-site or multi-cloud boundary: multi-area OSPF inside one AS, or eBGP between
+  different autonomous systems. Justification: routing-domain isolation and route
+  summarization, cite RFC 2328 and RFC 4271 as appropriate.
+- Single AS with 50 or more subnets: multi-area OSPF.
+- Justifications must include the actual numbers passed in.
+- Invalid input (negative or zero counts) raises InvalidParameterError.
+- Return Decision(domain="L3 routing", ...).
