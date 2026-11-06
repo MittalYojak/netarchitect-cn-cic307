@@ -1,0 +1,10 @@
+=== media 22000 ===
+[L1 media] OS2 Single-Mode Fiber (10GBASE-LR/ER): The 22000 m run exceeds the practical 400 m multimode backbone range and is better served by OS2 single-mode fiber. Its small core minimizes modal dispersion, while the optical power budget provides sufficient allowance for fiber attenuation, connector losses, and transmission distance in MAN/WAN deployments. [IEEE 802.3ae]
+=== media 50 ===
+[L1 media] Cat6a Copper (10GBASE-T): The 50 m run falls within the 100 m Ethernet copper channel distance limit specified by IEEE 802.3an (10GBASE-T). Cat6a provides a cost-effective solution for LAN access connectivity at this distance. [IEEE 802.3an]
+=== vlsm (crashes: mask_to_wildcard bug) ===
+  File "C:\Users\Yojak\netarchitect-cn-cic307\engine\vlsm.py", line 97, in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.254.0'
+=== routing 20,1,False ===
+[L3 routing] OSPF Single-Area (Area 0): The network has 20 subnets across 1 site and 1 autonomous system, with multi-cloud set to False. Since it is a single-site network with fewer than 50 subnets, single-area OSPF using Area 0 is appropriate. Its link-state architecture enables fast convergence through shortest-path recalculation, making it suitable for this relatively small enterprise network. [RFC 2328]
