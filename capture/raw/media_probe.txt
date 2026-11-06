@@ -1,0 +1,20 @@
+100 None -> Cat6a Copper (10GBASE-T)
+101 None -> OM4 Multimode Fiber (10GBASE-SR)
+400 None -> OM4 Multimode Fiber (10GBASE-SR)
+401 None -> OS2 Single-Mode Fiber (10GBASE-LR/ER)
+10000 None -> OS2 Single-Mode Fiber (10GBASE-LR/ER)
+10001 None -> OS2 Single-Mode Fiber (10GBASE-LR/ER)
+35000 None -> OS2 Single-Mode Fiber (10GBASE-LR/ER)
+100 'cat6a' -> Cat6a Copper (10GBASE-T)
+150 'cat6a' -> EXC PhysicalDistanceViolationError | Copper media was requested for a 150 m run, exceeding the 100 m Ethernet copper channel limit. Signal attenuation can degrade transmission quality and cause unreliable network connectivity. Consider fiber instead.
+0 None -> EXC InvalidParameterError | Distance must be greater than zero, received 0.
+-5 None -> EXC InvalidParameterError | Distance must be greater than zero, received -5.
+'abc' None -> EXC InvalidParameterError | Distance must be a numeric value, received 'abc'.
+40000 -> OS2 Single-Mode Fiber (10GBASE-LR/ER)
+    The 40000 m run exceeds the practical 400 m multimode backbone range and is better served by OS2 single-mode fiber. Its small core minimizes modal dispersion, w
+40001 -> OS2 Single-Mode Fiber (10GBASE-LR/ER)
+    The 40001 m run exceeds the practical 400 m multimode backbone range and is better served by OS2 single-mode fiber. Its small core minimizes modal dispersion, w
+80000 -> OS2 Single-Mode Fiber (10GBASE-LR/ER)
+    The 80000 m run exceeds the practical 400 m multimode backbone range and is better served by OS2 single-mode fiber. Its small core minimizes modal dispersion, w
+150000 -> OS2 Single-Mode Fiber (10GBASE-LR/ER)
+    The 150000 m run exceeds the practical 400 m multimode backbone range and is better served by OS2 single-mode fiber. Its small core minimizes modal dispersion, 

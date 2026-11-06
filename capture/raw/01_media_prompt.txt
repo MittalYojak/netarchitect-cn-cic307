@@ -1,0 +1,17 @@
+Write engine/media.py.
+
+Function: select_media(distance_m: float, requested_media: str | None = None) -> Decision
+
+Rules:
+- Run length <= 100 m (LAN access): recommend Cat6a (10GBASE-T). Justification must
+  cite the IEEE 802.3an distance limit.
+- Run length 101-400 m (backbone): recommend OM4 multimode fiber (10GBASE-SR).
+  Justification must include 850 nm dispersion rationale.
+- Run length > 400 m (MAN/WAN): recommend OS2 single-mode fiber (10GBASE-LR/ER).
+  Justification must include optical power budget rationale.
+- If requested_media is a copper type (e.g. "copper", "cat6a", "cat6", "cat5e") and
+  distance_m > 100, raise PhysicalDistanceViolationError with a message warning
+  about signal attenuation.
+- Invalid distance (non-numeric, zero, negative) raises InvalidParameterError.
+- Every justification string must include the actual distance value passed in.
+- Return Decision(domain="L1 media", ...).
