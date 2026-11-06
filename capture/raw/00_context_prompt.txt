@@ -1,0 +1,41 @@
+I'm building a Python 3.13 CLI project called NetArchitect for a college Computer
+Networks mini-project. It takes enterprise network parameters and outputs
+infrastructure recommendations with natural-language justifications, plus Cisco IOS
+configs later. Rules for all code: Python standard library only, type hints,
+docstrings, no print() inside engine functions, return Decision objects for
+decisions. I will request one module at a time. Reply with only the complete file
+contents in one code block.
+
+Project layout: engine/errors.py, engine/explain.py, engine/media.py,
+engine/vlsm.py, engine/routing.py.
+
+engine/errors.py:
+class NetArchitectError(Exception):
+    """Base class for all NetArchitect errors."""
+
+
+class PhysicalDistanceViolationError(NetArchitectError):
+    """Raised when a medium is requested beyond its physical reach."""
+
+
+class AddressSpaceExhaustedError(NetArchitectError):
+    """Raised when the root prefix cannot satisfy all host requests."""
+
+
+class InvalidParameterError(NetArchitectError):
+    """Raised for malformed or out-of-range input parameters."""
+engine/explain.py:
+from dataclasses import dataclass, field
+
+
+@dataclass
+class Decision:
+    """One engineering decision plus the reasoning behind it."""
+    domain: str                      # e.g. "L1 media", "L3 routing", "VLSM"
+    choice: str                      # e.g. "OS2 Single-Mode Fiber (10GBASE-ER)"
+    justification: str               # natural-language reason using the actual input numbers
+    references: list = field(default_factory=list)   # e.g. ["IEEE 802.3an", "RFC 2328"]
+
+    def __str__(self) -> str:
+        refs = f" [{', '.join(self.references)}]" if self.references else ""
+        return f"[{self.domain}] {self.choice}: {self.justification}{refs}"
