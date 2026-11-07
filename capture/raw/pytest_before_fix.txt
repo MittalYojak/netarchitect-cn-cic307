@@ -1,0 +1,430 @@
+........FFFFFFFFFFFFF..........FF...............................FFFFFF.. [ 65%]
+F..FFFFFFFFFFFFFFFFFFFFFF...........FF                                   [100%]
+================================== FAILURES ===================================
+___________________________ test_lr_up_to_10km[401] ___________________________
+tests\test_media.py:32: in test_lr_up_to_10km
+    assert transceiver(select_media(d).choice) == "10GBASE-LR"
+E   AssertionError: assert '10GBASE-LR/ER' == '10GBASE-LR'
+E     
+E     - 10GBASE-LR
+E     + 10GBASE-LR/ER
+E     ?           +++
+__________________________ test_lr_up_to_10km[5000] ___________________________
+tests\test_media.py:32: in test_lr_up_to_10km
+    assert transceiver(select_media(d).choice) == "10GBASE-LR"
+E   AssertionError: assert '10GBASE-LR/ER' == '10GBASE-LR'
+E     
+E     - 10GBASE-LR
+E     + 10GBASE-LR/ER
+E     ?           +++
+__________________________ test_lr_up_to_10km[10000] __________________________
+tests\test_media.py:32: in test_lr_up_to_10km
+    assert transceiver(select_media(d).choice) == "10GBASE-LR"
+E   AssertionError: assert '10GBASE-LR/ER' == '10GBASE-LR'
+E     
+E     - 10GBASE-LR
+E     + 10GBASE-LR/ER
+E     ?           +++
+_____________________ test_er_between_10_and_40km[10001] ______________________
+tests\test_media.py:37: in test_er_between_10_and_40km
+    assert transceiver(select_media(d).choice) == "10GBASE-ER"
+E   AssertionError: assert '10GBASE-LR/ER' == '10GBASE-ER'
+E     
+E     - 10GBASE-ER
+E     + 10GBASE-LR/ER
+E     ?         +++
+_____________________ test_er_between_10_and_40km[22000] ______________________
+tests\test_media.py:37: in test_er_between_10_and_40km
+    assert transceiver(select_media(d).choice) == "10GBASE-ER"
+E   AssertionError: assert '10GBASE-LR/ER' == '10GBASE-ER'
+E     
+E     - 10GBASE-ER
+E     + 10GBASE-LR/ER
+E     ?         +++
+_____________________ test_er_between_10_and_40km[35000] ______________________
+tests\test_media.py:37: in test_er_between_10_and_40km
+    assert transceiver(select_media(d).choice) == "10GBASE-ER"
+E   AssertionError: assert '10GBASE-LR/ER' == '10GBASE-ER'
+E     
+E     - 10GBASE-ER
+E     + 10GBASE-LR/ER
+E     ?         +++
+_____________________ test_er_between_10_and_40km[40000] ______________________
+tests\test_media.py:37: in test_er_between_10_and_40km
+    assert transceiver(select_media(d).choice) == "10GBASE-ER"
+E   AssertionError: assert '10GBASE-LR/ER' == '10GBASE-ER'
+E     
+E     - 10GBASE-ER
+E     + 10GBASE-LR/ER
+E     ?         +++
+_____________________ test_zr_between_40_and_80km[40001] ______________________
+tests\test_media.py:42: in test_zr_between_40_and_80km
+    assert "ZR" in select_media(d).choice
+E   AssertionError: assert 'ZR' in 'OS2 Single-Mode Fiber (10GBASE-LR/ER)'
+E    +  where 'OS2 Single-Mode Fiber (10GBASE-LR/ER)' = Decision(domain='L1 media', choice='OS2 Single-Mode Fiber (10GBASE-LR/ER)', justification='The 40001 m run exceeds the...r fiber attenuation, connector losses, and transmission distance in MAN/WAN deployments.', references=['IEEE 802.3ae']).choice
+E    +    where Decision(domain='L1 media', choice='OS2 Single-Mode Fiber (10GBASE-LR/ER)', justification='The 40001 m run exceeds the...r fiber attenuation, connector losses, and transmission distance in MAN/WAN deployments.', references=['IEEE 802.3ae']) = select_media(40001)
+_____________________ test_zr_between_40_and_80km[60000] ______________________
+tests\test_media.py:42: in test_zr_between_40_and_80km
+    assert "ZR" in select_media(d).choice
+E   AssertionError: assert 'ZR' in 'OS2 Single-Mode Fiber (10GBASE-LR/ER)'
+E    +  where 'OS2 Single-Mode Fiber (10GBASE-LR/ER)' = Decision(domain='L1 media', choice='OS2 Single-Mode Fiber (10GBASE-LR/ER)', justification='The 60000 m run exceeds the...r fiber attenuation, connector losses, and transmission distance in MAN/WAN deployments.', references=['IEEE 802.3ae']).choice
+E    +    where Decision(domain='L1 media', choice='OS2 Single-Mode Fiber (10GBASE-LR/ER)', justification='The 60000 m run exceeds the...r fiber attenuation, connector losses, and transmission distance in MAN/WAN deployments.', references=['IEEE 802.3ae']) = select_media(60000)
+_____________________ test_zr_between_40_and_80km[80000] ______________________
+tests\test_media.py:42: in test_zr_between_40_and_80km
+    assert "ZR" in select_media(d).choice
+E   AssertionError: assert 'ZR' in 'OS2 Single-Mode Fiber (10GBASE-LR/ER)'
+E    +  where 'OS2 Single-Mode Fiber (10GBASE-LR/ER)' = Decision(domain='L1 media', choice='OS2 Single-Mode Fiber (10GBASE-LR/ER)', justification='The 80000 m run exceeds the...r fiber attenuation, connector losses, and transmission distance in MAN/WAN deployments.', references=['IEEE 802.3ae']).choice
+E    +    where Decision(domain='L1 media', choice='OS2 Single-Mode Fiber (10GBASE-LR/ER)', justification='The 80000 m run exceeds the...r fiber attenuation, connector losses, and transmission distance in MAN/WAN deployments.', references=['IEEE 802.3ae']) = select_media(80000)
+________________ test_beyond_80km_needs_carrier_or_dwdm[80001] ________________
+tests\test_media.py:48: in test_beyond_80km_needs_carrier_or_dwdm
+    assert "carrier" in c or "dwdm" in c
+E   AssertionError: assert ('carrier' in 'os2 single-mode fiber (10gbase-lr/er)' or 'dwdm' in 'os2 single-mode fiber (10gbase-lr/er)')
+_______________ test_beyond_80km_needs_carrier_or_dwdm[150000] ________________
+tests\test_media.py:48: in test_beyond_80km_needs_carrier_or_dwdm
+    assert "carrier" in c or "dwdm" in c
+E   AssertionError: assert ('carrier' in 'os2 single-mode fiber (10gbase-lr/er)' or 'dwdm' in 'os2 single-mode fiber (10gbase-lr/er)')
+_______________ test_beyond_80km_needs_carrier_or_dwdm[1150000] _______________
+tests\test_media.py:48: in test_beyond_80km_needs_carrier_or_dwdm
+    assert "carrier" in c or "dwdm" in c
+E   AssertionError: assert ('carrier' in 'os2 single-mode fiber (10gbase-lr/er)' or 'dwdm' in 'os2 single-mode fiber (10gbase-lr/er)')
+______________________ test_invalid_distance_raises[nan] ______________________
+tests\test_media.py:69: in test_invalid_distance_raises
+    with pytest.raises(InvalidParameterError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE InvalidParameterError
+______________________ test_invalid_distance_raises[inf] ______________________
+tests\test_media.py:69: in test_invalid_distance_raises
+    with pytest.raises(InvalidParameterError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE InvalidParameterError
+_________ test_mask_to_wildcard_known_values[255.255.255.0-0.0.0.255] _________
+tests\test_vlsm.py:43: in test_mask_to_wildcard_known_values
+    assert mask_to_wildcard(mask) == wc
+           ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.0'
+_________ test_mask_to_wildcard_known_values[255.255.254.0-0.0.1.255] _________
+tests\test_vlsm.py:43: in test_mask_to_wildcard_known_values
+    assert mask_to_wildcard(mask) == wc
+           ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.254.0'
+________ test_mask_to_wildcard_known_values[255.255.255.128-0.0.0.127] ________
+tests\test_vlsm.py:43: in test_mask_to_wildcard_known_values
+    assert mask_to_wildcard(mask) == wc
+           ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.128'
+________ test_mask_to_wildcard_known_values[255.255.255.192-0.0.0.63] _________
+tests\test_vlsm.py:43: in test_mask_to_wildcard_known_values
+    assert mask_to_wildcard(mask) == wc
+           ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.192'
+_________ test_mask_to_wildcard_known_values[255.255.255.252-0.0.0.3] _________
+tests\test_vlsm.py:43: in test_mask_to_wildcard_known_values
+    assert mask_to_wildcard(mask) == wc
+           ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.252'
+_________ test_mask_to_wildcard_known_values[255.255.255.254-0.0.0.1] _________
+tests\test_vlsm.py:43: in test_mask_to_wildcard_known_values
+    assert mask_to_wildcard(mask) == wc
+           ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.254'
+_______________ test_mask_to_wildcard_all_33_prefixes_vs_oracle _______________
+tests\test_vlsm.py:49: in test_mask_to_wildcard_all_33_prefixes_vs_oracle
+    assert mask_to_wildcard(prefix_to_mask(p)) == expected, f"/{p}"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '128.0.0.0'
+______ test_mask_to_wildcard_rejects_non_contiguous_masks[0.255.255.255] ______
+tests\test_vlsm.py:54: in test_mask_to_wildcard_rejects_non_contiguous_masks
+    with pytest.raises(InvalidParameterError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE InvalidParameterError
+_____________________ test_sample_allocation_exact_values _____________________
+tests\test_vlsm.py:64: in test_sample_allocation_exact_values
+    for s in allocate_vlsm("10.0.0.0/16", reqs)]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.254.0'
+_____________________ test_output_is_sorted_largest_first _____________________
+tests\test_vlsm.py:78: in test_output_is_sorted_largest_first
+    names = [s.name for s in allocate_vlsm("10.0.0.0/16", reqs)]
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.254.0'
+____________________ test_smallest_prefix_boundaries[1-30] ____________________
+tests\test_vlsm.py:88: in test_smallest_prefix_boundaries
+    s = allocate_vlsm("10.0.0.0/16", [{"name": "X", "hosts": hosts}])[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.252'
+____________________ test_smallest_prefix_boundaries[2-30] ____________________
+tests\test_vlsm.py:88: in test_smallest_prefix_boundaries
+    s = allocate_vlsm("10.0.0.0/16", [{"name": "X", "hosts": hosts}])[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.252'
+____________________ test_smallest_prefix_boundaries[3-29] ____________________
+tests\test_vlsm.py:88: in test_smallest_prefix_boundaries
+    s = allocate_vlsm("10.0.0.0/16", [{"name": "X", "hosts": hosts}])[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.248'
+____________________ test_smallest_prefix_boundaries[6-29] ____________________
+tests\test_vlsm.py:88: in test_smallest_prefix_boundaries
+    s = allocate_vlsm("10.0.0.0/16", [{"name": "X", "hosts": hosts}])[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.248'
+____________________ test_smallest_prefix_boundaries[7-28] ____________________
+tests\test_vlsm.py:88: in test_smallest_prefix_boundaries
+    s = allocate_vlsm("10.0.0.0/16", [{"name": "X", "hosts": hosts}])[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.240'
+___________________ test_smallest_prefix_boundaries[14-28] ____________________
+tests\test_vlsm.py:88: in test_smallest_prefix_boundaries
+    s = allocate_vlsm("10.0.0.0/16", [{"name": "X", "hosts": hosts}])[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.240'
+___________________ test_smallest_prefix_boundaries[15-27] ____________________
+tests\test_vlsm.py:88: in test_smallest_prefix_boundaries
+    s = allocate_vlsm("10.0.0.0/16", [{"name": "X", "hosts": hosts}])[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.224'
+___________________ test_smallest_prefix_boundaries[30-27] ____________________
+tests\test_vlsm.py:88: in test_smallest_prefix_boundaries
+    s = allocate_vlsm("10.0.0.0/16", [{"name": "X", "hosts": hosts}])[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.224'
+___________________ test_smallest_prefix_boundaries[31-26] ____________________
+tests\test_vlsm.py:88: in test_smallest_prefix_boundaries
+    s = allocate_vlsm("10.0.0.0/16", [{"name": "X", "hosts": hosts}])[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.192'
+___________________ test_smallest_prefix_boundaries[62-26] ____________________
+tests\test_vlsm.py:88: in test_smallest_prefix_boundaries
+    s = allocate_vlsm("10.0.0.0/16", [{"name": "X", "hosts": hosts}])[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.192'
+___________________ test_smallest_prefix_boundaries[63-25] ____________________
+tests\test_vlsm.py:88: in test_smallest_prefix_boundaries
+    s = allocate_vlsm("10.0.0.0/16", [{"name": "X", "hosts": hosts}])[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.128'
+___________________ test_smallest_prefix_boundaries[126-25] ___________________
+tests\test_vlsm.py:88: in test_smallest_prefix_boundaries
+    s = allocate_vlsm("10.0.0.0/16", [{"name": "X", "hosts": hosts}])[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.128'
+___________________ test_smallest_prefix_boundaries[127-24] ___________________
+tests\test_vlsm.py:88: in test_smallest_prefix_boundaries
+    s = allocate_vlsm("10.0.0.0/16", [{"name": "X", "hosts": hosts}])[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.0'
+___________________ test_smallest_prefix_boundaries[254-24] ___________________
+tests\test_vlsm.py:88: in test_smallest_prefix_boundaries
+    s = allocate_vlsm("10.0.0.0/16", [{"name": "X", "hosts": hosts}])[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.0'
+___________________ test_smallest_prefix_boundaries[255-23] ___________________
+tests\test_vlsm.py:88: in test_smallest_prefix_boundaries
+    s = allocate_vlsm("10.0.0.0/16", [{"name": "X", "hosts": hosts}])[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.254.0'
+___________________ test_smallest_prefix_boundaries[510-23] ___________________
+tests\test_vlsm.py:88: in test_smallest_prefix_boundaries
+    s = allocate_vlsm("10.0.0.0/16", [{"name": "X", "hosts": hosts}])[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.254.0'
+___________________ test_smallest_prefix_boundaries[511-22] ___________________
+tests\test_vlsm.py:88: in test_smallest_prefix_boundaries
+    s = allocate_vlsm("10.0.0.0/16", [{"name": "X", "hosts": hosts}])[0]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.252.0'
+_______________________ test_exact_fill_of_root_prefix ________________________
+tests\test_vlsm.py:94: in test_exact_fill_of_root_prefix
+    subs = allocate_vlsm("192.168.1.0/24", reqs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.128'
+_____________________ test_exhaustion_one_block_too_many ______________________
+tests\test_vlsm.py:102: in test_exhaustion_one_block_too_many
+    allocate_vlsm("192.168.1.0/24", reqs)
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.255.128'
+__________________ test_randomized_against_ipaddress_oracle ___________________
+tests\test_vlsm.py:135: in test_randomized_against_ipaddress_oracle
+    subs = allocate_vlsm("10.0.0.0/16", reqs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.252.0'
+_________________ test_utilization_report_is_a_vlsm_decision __________________
+tests\test_vlsm.py:159: in test_utilization_report_is_a_vlsm_decision
+    subs = allocate_vlsm("10.0.0.0/16", reqs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:218: in allocate_vlsm
+    wildcard = mask_to_wildcard(mask)
+               ^^^^^^^^^^^^^^^^^^^^^^
+engine\vlsm.py:97: in mask_to_wildcard
+    raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
+E   engine.errors.InvalidParameterError: Invalid subnet mask: '255.255.254.0'
+=========================== short test summary info ===========================
+FAILED tests/test_media.py::test_lr_up_to_10km[401] - AssertionError: assert ...
+FAILED tests/test_media.py::test_lr_up_to_10km[5000] - AssertionError: assert...
+FAILED tests/test_media.py::test_lr_up_to_10km[10000] - AssertionError: asser...
+FAILED tests/test_media.py::test_er_between_10_and_40km[10001] - AssertionErr...
+FAILED tests/test_media.py::test_er_between_10_and_40km[22000] - AssertionErr...
+FAILED tests/test_media.py::test_er_between_10_and_40km[35000] - AssertionErr...
+FAILED tests/test_media.py::test_er_between_10_and_40km[40000] - AssertionErr...
+FAILED tests/test_media.py::test_zr_between_40_and_80km[40001] - AssertionErr...
+FAILED tests/test_media.py::test_zr_between_40_and_80km[60000] - AssertionErr...
+FAILED tests/test_media.py::test_zr_between_40_and_80km[80000] - AssertionErr...
+FAILED tests/test_media.py::test_beyond_80km_needs_carrier_or_dwdm[80001] - A...
+FAILED tests/test_media.py::test_beyond_80km_needs_carrier_or_dwdm[150000] - ...
+FAILED tests/test_media.py::test_beyond_80km_needs_carrier_or_dwdm[1150000]
+FAILED tests/test_media.py::test_invalid_distance_raises[nan] - Failed: DID N...
+FAILED tests/test_media.py::test_invalid_distance_raises[inf] - Failed: DID N...
+FAILED tests/test_vlsm.py::test_mask_to_wildcard_known_values[255.255.255.0-0.0.0.255]
+FAILED tests/test_vlsm.py::test_mask_to_wildcard_known_values[255.255.254.0-0.0.1.255]
+FAILED tests/test_vlsm.py::test_mask_to_wildcard_known_values[255.255.255.128-0.0.0.127]
+FAILED tests/test_vlsm.py::test_mask_to_wildcard_known_values[255.255.255.192-0.0.0.63]
+FAILED tests/test_vlsm.py::test_mask_to_wildcard_known_values[255.255.255.252-0.0.0.3]
+FAILED tests/test_vlsm.py::test_mask_to_wildcard_known_values[255.255.255.254-0.0.0.1]
+FAILED tests/test_vlsm.py::test_mask_to_wildcard_all_33_prefixes_vs_oracle - ...
+FAILED tests/test_vlsm.py::test_mask_to_wildcard_rejects_non_contiguous_masks[0.255.255.255]
+FAILED tests/test_vlsm.py::test_sample_allocation_exact_values - engine.error...
+FAILED tests/test_vlsm.py::test_output_is_sorted_largest_first - engine.error...
+FAILED tests/test_vlsm.py::test_smallest_prefix_boundaries[1-30] - engine.err...
+FAILED tests/test_vlsm.py::test_smallest_prefix_boundaries[2-30] - engine.err...
+FAILED tests/test_vlsm.py::test_smallest_prefix_boundaries[3-29] - engine.err...
+FAILED tests/test_vlsm.py::test_smallest_prefix_boundaries[6-29] - engine.err...
+FAILED tests/test_vlsm.py::test_smallest_prefix_boundaries[7-28] - engine.err...
+FAILED tests/test_vlsm.py::test_smallest_prefix_boundaries[14-28] - engine.er...
+FAILED tests/test_vlsm.py::test_smallest_prefix_boundaries[15-27] - engine.er...
+FAILED tests/test_vlsm.py::test_smallest_prefix_boundaries[30-27] - engine.er...
+FAILED tests/test_vlsm.py::test_smallest_prefix_boundaries[31-26] - engine.er...
+FAILED tests/test_vlsm.py::test_smallest_prefix_boundaries[62-26] - engine.er...
+FAILED tests/test_vlsm.py::test_smallest_prefix_boundaries[63-25] - engine.er...
+FAILED tests/test_vlsm.py::test_smallest_prefix_boundaries[126-25] - engine.e...
+FAILED tests/test_vlsm.py::test_smallest_prefix_boundaries[127-24] - engine.e...
+FAILED tests/test_vlsm.py::test_smallest_prefix_boundaries[254-24] - engine.e...
+FAILED tests/test_vlsm.py::test_smallest_prefix_boundaries[255-23] - engine.e...
+FAILED tests/test_vlsm.py::test_smallest_prefix_boundaries[510-23] - engine.e...
+FAILED tests/test_vlsm.py::test_smallest_prefix_boundaries[511-22] - engine.e...
+FAILED tests/test_vlsm.py::test_exact_fill_of_root_prefix - engine.errors.Inv...
+FAILED tests/test_vlsm.py::test_exhaustion_one_block_too_many - engine.errors...
+FAILED tests/test_vlsm.py::test_randomized_against_ipaddress_oracle - engine....
+FAILED tests/test_vlsm.py::test_utilization_report_is_a_vlsm_decision - engin...
+46 failed, 64 passed in 0.38s
