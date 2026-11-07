@@ -1,0 +1,27 @@
+{
+  "profile": 3,
+  "name": "Global WAN",
+  "endpoints": 2000,
+  "root_cidr": "10.100.0.0/16",
+  "resiliency": "dual-homed",
+  "routing": {"num_sites": 5, "multi_cloud": true, "num_autonomous_systems": 2},
+  "links": [
+    {"name": "City office access", "distance_m": 85},
+    {"name": "Delhi to Mumbai", "distance_m": 1150000},
+    {"name": "Delhi to Bengaluru", "distance_m": 1740000},
+    {"name": "Delhi to Chennai", "distance_m": 1750000},
+    {"name": "Delhi to Cloud VPC region", "distance_m": 1150000}
+  ],
+  "subnets": [
+    {"name": "Delhi-IoT", "hosts": 600},
+    {"name": "Mumbai-IoT", "hosts": 500},
+    {"name": "Bengaluru-IoT", "hosts": 500},
+    {"name": "Chennai-IoT", "hosts": 400},
+    {"name": "Cloud-VPC", "hosts": 250},
+    {"name": "Management", "hosts": 40},
+    {"name": "Tunnel-Delhi-Mumbai", "hosts": 2},
+    {"name": "Tunnel-Delhi-Bengaluru", "hosts": 2},
+    {"name": "Tunnel-Delhi-Chennai", "hosts": 2},
+    {"name": "Tunnel-Delhi-Cloud", "hosts": 2}
+  ]
+}

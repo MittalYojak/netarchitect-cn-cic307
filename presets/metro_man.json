@@ -1,0 +1,26 @@
+{
+  "profile": 2,
+  "name": "Metro MAN",
+  "endpoints": 450,
+  "root_cidr": "172.16.0.0/20",
+  "resiliency": "dual-homed",
+  "routing": {"num_sites": 3, "multi_cloud": false, "num_autonomous_systems": 1},
+  "links": [
+    {"name": "HQ floor access", "distance_m": 80},
+    {"name": "HQ to FinTech colo", "distance_m": 3000},
+    {"name": "HQ to Remote A", "distance_m": 15000},
+    {"name": "Remote A to Remote B (failover path)", "distance_m": 22000},
+    {"name": "HQ to Remote B", "distance_m": 35000}
+  ],
+  "subnets": [
+    {"name": "HQ-Users", "hosts": 250},
+    {"name": "RemoteA-Users", "hosts": 120},
+    {"name": "RemoteB-Users", "hosts": 80},
+    {"name": "FinTech-Colo", "hosts": 60},
+    {"name": "Management", "hosts": 20},
+    {"name": "P2P-HQ-A", "hosts": 2},
+    {"name": "P2P-HQ-B", "hosts": 2},
+    {"name": "P2P-A-B", "hosts": 2},
+    {"name": "P2P-HQ-Colo", "hosts": 2}
+  ]
+}

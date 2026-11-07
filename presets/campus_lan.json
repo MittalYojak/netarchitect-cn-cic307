@@ -1,0 +1,25 @@
+{
+  "profile": 1,
+  "name": "Campus LAN",
+  "endpoints": 1600,
+  "root_cidr": "10.10.0.0/16",
+  "resiliency": "dual-homed",
+  "routing": {"num_sites": 1, "multi_cloud": false, "num_autonomous_systems": 1},
+  "links": [
+    {"name": "Floor access: switch to AP/endpoint", "distance_m": 90},
+    {"name": "Building A to Building B backbone", "distance_m": 350},
+    {"name": "Building A to Building C backbone", "distance_m": 390}
+  ],
+  "subnets": [
+    {"name": "Students", "hosts": 600},
+    {"name": "Staff", "hosts": 400},
+    {"name": "Labs", "hosts": 250},
+    {"name": "Wireless-APs", "hosts": 150},
+    {"name": "VoIP", "hosts": 120},
+    {"name": "Servers", "hosts": 50},
+    {"name": "Management", "hosts": 30},
+    {"name": "P2P-A-B", "hosts": 2},
+    {"name": "P2P-A-C", "hosts": 2},
+    {"name": "P2P-B-C", "hosts": 2}
+  ]
+}
