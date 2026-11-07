@@ -1,0 +1,41 @@
+..................................FFFF..F.                               [100%]
+================================== FAILURES ===================================
+___ test_stated_fibre_loss_fits_transceiver_budget_at_max_reach[40000-11.0] ___
+tests\test_media.py:83: in test_stated_fibre_loss_fits_transceiver_budget_at_max_reach
+    assert _loss_db(d) <= budget
+E   assert 16.0 <= 11.0
+E    +  where 16.0 = _loss_db(40000)
+___ test_stated_fibre_loss_fits_transceiver_budget_at_max_reach[80000-24.0] ___
+tests\test_media.py:83: in test_stated_fibre_loss_fits_transceiver_budget_at_max_reach
+    assert _loss_db(d) <= budget
+E   assert 32.0 <= 24.0
+E    +  where 32.0 = _loss_db(80000)
+__________________ test_zr_is_not_attributed_to_ieee_802_3ae __________________
+tests\test_media.py:88: in test_zr_is_not_attributed_to_ieee_802_3ae
+    assert "802.3ae" not in " ".join(r.references)
+E   AssertionError: assert '802.3ae' not in 'IEEE 802.3ae'
+E     
+E     '802.3ae' is contained here:
+E       IEEE 802.3ae
+______________ test_carrier_circuit_is_not_attributed_to_802_3ae ______________
+tests\test_media.py:94: in test_carrier_circuit_is_not_attributed_to_802_3ae
+    assert "802.3ae" not in " ".join(select_media(200000).references)
+E   AssertionError: assert '802.3ae' not in 'IEEE 802.3ae'
+E     
+E     '802.3ae' is contained here:
+E       IEEE 802.3ae
+_____ test_justification_states_engineering_facts_not_the_request[60000] ______
+tests\test_media.py:104: in test_justification_states_engineering_facts_not_the_request
+    assert "requested" not in select_media(d).justification.lower()
+E   AssertionError: assert 'requested' not in 'the 60000 m...e equipment.'
+E     
+E     'requested' is contained here:
+E       ithin the requested 80,000 m reach limit for 10gbase-zr. at an assumed maximum fiber attenuation of 0.4 db/km, the fiber loss over 60000 m is approximately 24.00 db, excluding connector, splice, and engineering-margin losses. the zr optical power budget must accommodate the resulting link loss; dispersion compensation and intermediate amplification may also be required depending on the equipment.
+E     ?           +++++++++
+=========================== short test summary info ===========================
+FAILED tests/test_media.py::test_stated_fibre_loss_fits_transceiver_budget_at_max_reach[40000-11.0]
+FAILED tests/test_media.py::test_stated_fibre_loss_fits_transceiver_budget_at_max_reach[80000-24.0]
+FAILED tests/test_media.py::test_zr_is_not_attributed_to_ieee_802_3ae - Asser...
+FAILED tests/test_media.py::test_carrier_circuit_is_not_attributed_to_802_3ae
+FAILED tests/test_media.py::test_justification_states_engineering_facts_not_the_request[60000]
+5 failed, 37 passed in 0.11s

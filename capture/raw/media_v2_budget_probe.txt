@@ -1,0 +1,6 @@
+10000 | OS2 Single-Mode Fiber (10GBASE-LR) | loss: 4.00 dB | refs: ['IEEE 802.3ae']
+22000 | OS2 Single-Mode Fiber (10GBASE-ER) | loss: 8.80 dB | refs: ['IEEE 802.3ae']
+40000 | OS2 Single-Mode Fiber (10GBASE-ER) | loss: 16.00 dB | refs: ['IEEE 802.3ae']
+60000 | OS2 Single-Mode Fiber (10GBASE-ZR) | loss: 24.00 dB | refs: ['IEEE 802.3ae']
+80000 | OS2 Single-Mode Fiber (10GBASE-ZR) | loss: 32.00 dB | refs: ['IEEE 802.3ae']
+200000 | Carrier-Provided WAN Circuit or DWDM with Optical Amplification | loss: 80.00 dB | refs: ['IEEE 802.3ae']

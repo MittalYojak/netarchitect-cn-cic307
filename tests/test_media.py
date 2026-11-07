@@ -68,3 +68,37 @@ def test_copper_at_exactly_100m_is_allowed():
 def test_invalid_distance_raises(d):
     with pytest.raises(InvalidParameterError):
         select_media(d)
+
+
+# ---------- explanation accuracy (added after reviewing the AI's v2 text) ----------
+def _loss_db(d):
+    j = select_media(d).justification
+    m = re.search(r"(?:approximately|about|roughly|~)\s*([\d.]+)\s*dB", j)
+    assert m, "justification must state the fibre loss in dB"
+    return float(m.group(1))
+
+
+@pytest.mark.parametrize("d,budget", [(10000, 6.2), (40000, 11.0), (80000, 24.0)])
+def test_stated_fibre_loss_fits_transceiver_budget_at_max_reach(d, budget):
+    assert _loss_db(d) <= budget
+
+
+def test_zr_is_not_attributed_to_ieee_802_3ae():
+    r = select_media(60000)
+    assert "802.3ae" not in " ".join(r.references)
+    j = r.justification.lower()
+    assert any(w in j for w in ("vendor", "non-standard", "not part of ieee", "not an ieee", "msa"))
+
+
+def test_carrier_circuit_is_not_attributed_to_802_3ae():
+    assert "802.3ae" not in " ".join(select_media(200000).references)
+
+
+@pytest.mark.parametrize("d", [8000, 22000])
+def test_lr_and_er_cite_802_3ae(d):
+    assert "802.3ae" in " ".join(select_media(d).references)
+
+
+@pytest.mark.parametrize("d", [60000, 200000])
+def test_justification_states_engineering_facts_not_the_request(d):
+    assert "requested" not in select_media(d).justification.lower()
