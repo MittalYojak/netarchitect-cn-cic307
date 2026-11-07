@@ -1,0 +1,65 @@
+.....F...................                                                [100%]
+================================== FAILURES ===================================
+_____________________ test_unknown_preset_is_clean_error ______________________
+..\AppData\Local\Python\pythoncore-3.15-64\Lib\argparse.py:2188: in _parse_known_args2
+    namespace, args = self._parse_known_args(args, namespace, intermixed)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\AppData\Local\Python\pythoncore-3.15-64\Lib\argparse.py:2439: in _parse_known_args
+    start_index = consume_optional(start_index)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\AppData\Local\Python\pythoncore-3.15-64\Lib\argparse.py:2363: in consume_optional
+    take_action(action, args, option_string)
+..\AppData\Local\Python\pythoncore-3.15-64\Lib\argparse.py:2249: in take_action
+    argument_values = self._get_values(action, argument_strings)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\AppData\Local\Python\pythoncore-3.15-64\Lib\argparse.py:2766: in _get_values
+    self._check_value(action, value)
+..\AppData\Local\Python\pythoncore-3.15-64\Lib\argparse.py:2837: in _check_value
+    raise ArgumentError(action, msg % args)
+E   argparse.ArgumentError: argument --preset: invalid choice: 'nope' (choose from 'campus_lan', 'metro_man', 'global_wan')
+
+During handling of the above exception, another exception occurred:
+tests\test_cli.py:47: in test_unknown_preset_is_clean_error
+    code, out, err = run(["plan", "--preset", "nope"], capsys)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_cli.py:15: in run
+    code = cli.main(argv)
+           ^^^^^^^^^^^^^^
+cli.py:144: in main
+    args = parser.parse_args(argv)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+..\AppData\Local\Python\pythoncore-3.15-64\Lib\argparse.py:2149: in parse_args
+    args, argv = self.parse_known_args(args, namespace)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\AppData\Local\Python\pythoncore-3.15-64\Lib\argparse.py:2159: in parse_known_args
+    return self._parse_known_args2(args, namespace, intermixed=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\AppData\Local\Python\pythoncore-3.15-64\Lib\argparse.py:2188: in _parse_known_args2
+    namespace, args = self._parse_known_args(args, namespace, intermixed)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\AppData\Local\Python\pythoncore-3.15-64\Lib\argparse.py:2420: in _parse_known_args
+    positionals_end_index = consume_positionals(start_index)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\AppData\Local\Python\pythoncore-3.15-64\Lib\argparse.py:2395: in consume_positionals
+    take_action(action, args)
+..\AppData\Local\Python\pythoncore-3.15-64\Lib\argparse.py:2264: in take_action
+    action(self, namespace, argument_values, option_string)
+..\AppData\Local\Python\pythoncore-3.15-64\Lib\argparse.py:1451: in __call__
+    subnamespace, arg_strings = subparser.parse_known_args(arg_strings, None)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\AppData\Local\Python\pythoncore-3.15-64\Lib\argparse.py:2159: in parse_known_args
+    return self._parse_known_args2(args, namespace, intermixed=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\AppData\Local\Python\pythoncore-3.15-64\Lib\argparse.py:2190: in _parse_known_args2
+    self.error(str(err))
+..\AppData\Local\Python\pythoncore-3.15-64\Lib\argparse.py:2958: in error
+    self.exit(2, fmt % args)
+..\AppData\Local\Python\pythoncore-3.15-64\Lib\argparse.py:2940: in exit
+    _sys.exit(status)
+E   SystemExit: 2
+---------------------------- Captured stderr call -----------------------------
+usage: NetArchitect plan [-h] (--preset NAME | --custom FILE) [--out FILE]
+NetArchitect plan: error: argument --preset: invalid choice: 'nope' (choose from 'campus_lan', 'metro_man', 'global_wan')
+=========================== short test summary info ===========================
+FAILED tests/test_cli.py::test_unknown_preset_is_clean_error - SystemExit: 2
+1 failed, 24 passed in 0.36s
