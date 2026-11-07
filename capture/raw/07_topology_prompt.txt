@@ -1,0 +1,29 @@
+Write engine/topology.py for the NetArchitect project (same conventions as before:
+Python 3.10+, standard library only, Decision from engine.explain, InvalidParameterError
+from engine.errors).
+
+Function: select_topology(endpoints: int, num_sites: int, resiliency: str) -> Decision
+with domain="Topology tier".
+
+Rules:
+- num_sites == 1 and endpoints <= 500: choice "Two-tier collapsed core (access +
+  collapsed core/distribution)".
+- num_sites == 1 and endpoints > 500: choice "Three-tier hierarchical (access,
+  distribution, core)".
+- 2 <= num_sites <= 4: choice "Full-mesh site interconnect". The number of inter-site
+  links is num_sites*(num_sites-1)/2 and that number must appear in the justification.
+- num_sites >= 5: choice "Hub-and-spoke WAN". The number of spoke links is
+  num_sites-1 and that number must appear in the justification.
+- resiliency is exactly "dual-homed" or "none". If "dual-homed", the justification must
+  include the word "redundant" and describe the redundant uplinks or paths for that
+  topology. If "none", the justification must include the exact phrase
+  "single point of failure".
+- Every justification must include the actual endpoints and num_sites values passed in
+  and explain why that tier or topology fits (scale, failure domains, link count).
+- endpoints and num_sites must be positive integers (bool, float, NaN, infinity, zero
+  and negative values are invalid); resiliency must be exactly one of the two strings;
+  anything else raises InvalidParameterError.
+- Return Decision(domain="Topology tier", choice=..., justification=..., references=[...]).
+  Only put a reference in the list if you are sure it exists; otherwise leave it empty.
+
+Reply with only the complete file in one code block.
