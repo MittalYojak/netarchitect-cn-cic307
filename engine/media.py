@@ -27,10 +27,7 @@ def select_media(
             zero, or negative.
         PhysicalDistanceViolationError: If copper is requested beyond 100 m.
     """
-    if (
-        isinstance(distance_m, bool)
-        or not isinstance(distance_m, (int, float))
-    ):
+    if isinstance(distance_m, bool) or not isinstance(distance_m, (int, float)):
         raise InvalidParameterError(
             f"Distance must be numeric, received {distance_m!r}."
         )
@@ -94,74 +91,87 @@ def select_media(
         )
 
     if distance <= 10_000:
+        fiber_loss = distance / 1000 * 0.4
+        power_budget = 6.2
+        margin = power_budget - fiber_loss
+
         return Decision(
             domain="L1 media",
             choice="OS2 Single-Mode Fiber (10GBASE-LR)",
             justification=(
                 f"The {distance_m} m run exceeds the 400 m multimode "
                 "reach limit but remains within the 10,000 m reach limit "
-                "of 10GBASE-LR over OS2 single-mode fiber. At an assumed "
-                "maximum fiber attenuation of 0.4 dB/km, the fiber loss "
-                f"over {distance_m} m is approximately "
-                f"{distance / 1000 * 0.4:.2f} dB, excluding connector, "
-                "splice, and engineering-margin losses. The optical "
-                "power budget must accommodate these losses."
+                "of 10GBASE-LR over OS2 single-mode fiber. At 1310 nm, "
+                "the assumed fiber attenuation is 0.4 dB/km. The fiber "
+                f"loss is approximately {fiber_loss:.2f} dB. Against "
+                f"the 6.2 dB transceiver power budget, the remaining "
+                f"margin is {margin:.2f} dB. Connector, splice, and "
+                "engineering-margin losses must also be considered."
             ),
             references=["IEEE 802.3ae"],
         )
 
     if distance <= 40_000:
+        fiber_loss = distance / 1000 * 0.25
+        power_budget = 10.9
+        margin = power_budget - fiber_loss
+
         return Decision(
             domain="L1 media",
             choice="OS2 Single-Mode Fiber (10GBASE-ER)",
             justification=(
                 f"The {distance_m} m run exceeds the 10,000 m reach "
                 "limit of 10GBASE-LR but remains within the 40,000 m "
-                "reach limit of 10GBASE-ER. At an assumed maximum fiber "
-                "attenuation of 0.4 dB/km, the fiber loss over "
-                f"{distance_m} m is approximately "
-                f"{distance / 1000 * 0.4:.2f} dB, excluding connector, "
-                "splice, and engineering-margin losses. The ER optical "
-                "transceiver must provide sufficient power budget to "
-                "cover the total link loss."
+                "reach limit of 10GBASE-ER. At 1550 nm, the assumed fiber "
+                "attenuation is 0.25 dB/km. The fiber loss is "
+                f"approximately {fiber_loss:.2f} dB. Against the "
+                f"10.9 dB transceiver power budget, the remaining "
+                f"margin is {margin:.2f} dB. Connector, splice, and "
+                "engineering-margin losses must also be considered."
             ),
             references=["IEEE 802.3ae"],
         )
 
     if distance <= 80_000:
+        fiber_loss = distance / 1000 * 0.25
+        power_budget = 24.0
+        margin = power_budget - fiber_loss
+
         return Decision(
             domain="L1 media",
             choice="OS2 Single-Mode Fiber (10GBASE-ZR)",
             justification=(
                 f"The {distance_m} m run exceeds the 40,000 m reach "
-                "limit of 10GBASE-ER but remains within the requested "
-                "80,000 m reach limit for 10GBASE-ZR. At an assumed "
-                "maximum fiber attenuation of 0.4 dB/km, the fiber loss "
-                f"over {distance_m} m is approximately "
-                f"{distance / 1000 * 0.4:.2f} dB, excluding connector, "
-                "splice, and engineering-margin losses. The ZR optical "
-                "power budget must accommodate the resulting link loss; "
-                "dispersion compensation and intermediate amplification "
-                "may also be required depending on the equipment."
+                "limit of 10GBASE-ER but remains within the 80,000 m "
+                "reach limit of vendor-defined 10GBASE-ZR, a non-IEEE "
+                "optical interface. At 1550 nm, the assumed fiber "
+                "attenuation is 0.25 dB/km. The fiber loss is "
+                f"approximately {fiber_loss:.2f} dB. Against the "
+                f"24.0 dB vendor-defined transceiver power budget, "
+                f"the remaining margin is {margin:.2f} dB. Connector, "
+                "splice, and engineering-margin losses must also be "
+                "considered. Dispersion compensation and intermediate "
+                "amplification may be necessary depending on the equipment."
             ),
-            references=["IEEE 802.3ae"],
+            references=["Vendor-defined 10GBASE-ZR specifications"],
         )
+
+    fiber_loss = distance / 1000 * 0.25
 
     return Decision(
         domain="L1 media",
         choice="Carrier-Provided WAN Circuit or DWDM with Optical Amplification",
         justification=(
             f"The {distance_m} m run exceeds the 80,000 m reach limit "
-            "of the specified 10GBASE-ZR option. A carrier-provided WAN "
-            "circuit or a DWDM architecture with optical amplification "
-            "is recommended. At an assumed fiber attenuation of "
-            "0.4 dB/km, the estimated fiber loss over "
-            f"{distance_m} m is approximately "
-            f"{distance / 1000 * 0.4:.2f} dB, excluding connector, "
+            "of vendor-defined 10GBASE-ZR. At 1550 nm, using an assumed "
+            "fiber attenuation of 0.25 dB/km, the estimated fiber loss "
+            f"is approximately {fiber_loss:.2f} dB, excluding connector, "
             "splice, and engineering-margin losses. This exceeds the "
-            "practical reach of the specified direct optical link and "
-            "requires an engineered optical power budget with appropriate "
-            "amplification or carrier-managed infrastructure."
+            "24.0 dB vendor-defined ZR transceiver power budget. A "
+            "carrier-provided WAN circuit or DWDM architecture with "
+            "optical amplification is therefore appropriate. The optical "
+            "link requires an engineered power budget and suitable "
+            "amplification to compensate for accumulated transmission losses."
         ),
-        references=["IEEE 802.3ae"],
+        references=["ITU-T G.652", "ITU-T G.694.1"],
     )
