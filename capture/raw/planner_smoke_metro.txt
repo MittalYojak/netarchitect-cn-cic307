@@ -1,0 +1,91 @@
+1. Scenario summary
+-------------------
+Name: Metro MAN
+Profile: 2
+Endpoints: 450
+Root prefix: 172.16.0.0/20
+Resiliency: dual-homed
+Sites: 3
+
+2. Physical media per link
+--------------------------
+Link 1: HQ floor access
+Distance: 80 m
+Choice: Cat6a Copper (10GBASE-T)
+Justification: The 80 m run falls within the 100 m Ethernet copper channel distance limit specified by IEEE 802.3an (10GBASE-T). Cat6a provides a cost-effective solution for LAN access connectivity.
+References: IEEE 802.3an
+
+Link 2: HQ to FinTech colo
+Distance: 3000 m
+Choice: OS2 Single-Mode Fiber (10GBASE-LR)
+Justification: The 3000 m run exceeds the 400 m multimode reach limit but remains within the 10,000 m reach limit of 10GBASE-LR over OS2 single-mode fiber. At 1310 nm, the assumed fiber attenuation is 0.4 dB/km. The fiber loss is approximately 1.20 dB. Against the 6.2 dB transceiver power budget, the remaining margin is 5.00 dB. Connector, splice, and engineering-margin losses must also be considered.
+References: IEEE 802.3ae
+
+Link 3: HQ to Remote A
+Distance: 15000 m
+Choice: OS2 Single-Mode Fiber (10GBASE-ER)
+Justification: The 15000 m run exceeds the 10,000 m reach limit of 10GBASE-LR but remains within the 40,000 m reach limit of 10GBASE-ER. At 1550 nm, the assumed fiber attenuation is 0.25 dB/km. The fiber loss is approximately 3.75 dB. Against the 10.9 dB transceiver power budget, the remaining margin is 7.15 dB. Connector, splice, and engineering-margin losses must also be considered.
+References: IEEE 802.3ae
+
+Link 4: Remote A to Remote B (failover path)
+Distance: 22000 m
+Choice: OS2 Single-Mode Fiber (10GBASE-ER)
+Justification: The 22000 m run exceeds the 10,000 m reach limit of 10GBASE-LR but remains within the 40,000 m reach limit of 10GBASE-ER. At 1550 nm, the assumed fiber attenuation is 0.25 dB/km. The fiber loss is approximately 5.50 dB. Against the 10.9 dB transceiver power budget, the remaining margin is 5.40 dB. Connector, splice, and engineering-margin losses must also be considered.
+References: IEEE 802.3ae
+
+Link 5: HQ to Remote B
+Distance: 35000 m
+Choice: OS2 Single-Mode Fiber (10GBASE-ER)
+Justification: The 35000 m run exceeds the 10,000 m reach limit of 10GBASE-LR but remains within the 40,000 m reach limit of 10GBASE-ER. At 1550 nm, the assumed fiber attenuation is 0.25 dB/km. The fiber loss is approximately 8.75 dB. Against the 10.9 dB transceiver power budget, the remaining margin is 2.15 dB. Connector, splice, and engineering-margin losses must also be considered.
+References: IEEE 802.3ae
+
+3. Topology tier
+----------------
+Choice: Full-mesh site interconnect
+Justification: The network has 450 endpoints across 3 sites. A network with 450 endpoints across 3 sites requires 3 inter-site links in a full mesh. This topology provides direct connectivity between every pair of sites, reducing dependence on intermediate sites and supporting efficient inter-site communication. Direct inter-site connections improve path diversity and limit the impact of an individual inter-site link failure. Dual-homed resiliency provides redundant uplinks or network paths. Access switches should connect to independent distribution or collapsed-core devices where applicable. For multi-site topologies, redundant inter-site or WAN paths should be provisioned to maintain connectivity during individual link or device failures. The selected resiliency level is 'dual-homed'.
+References: None
+
+4. Routing protocol
+-------------------
+Choice: Multi-Area OSPF with Area 0 backbone
+Justification: The network has 9 subnets across 3 sites, does not use multiple cloud providers, and operates within 1 autonomous system. Multi-area OSPF is recommended to isolate routing domains while maintaining connectivity through the Area 0 backbone. Area boundaries support route summarization, reduce routing overhead, and improve scalability.
+References: RFC 2328
+
+5. Address plan
+---------------
+Name                 Network/Prefix         Mask             Wildcard         Gateway          First-Last Host                  Broadcast        Hosts (Req/Usable)   Efficiency % 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HQ-Users             172.16.0.0/24          255.255.255.0    0.0.0.255        172.16.0.1       172.16.0.1-172.16.0.254          172.16.0.255     250/254              98.43%
+RemoteA-Users        172.16.1.0/25          255.255.255.128  0.0.0.127        172.16.1.1       172.16.1.1-172.16.1.126          172.16.1.127     120/126              95.24%
+RemoteB-Users        172.16.1.128/25        255.255.255.128  0.0.0.127        172.16.1.129     172.16.1.129-172.16.1.254        172.16.1.255     80/126               63.49%
+FinTech-Colo         172.16.2.0/26          255.255.255.192  0.0.0.63         172.16.2.1       172.16.2.1-172.16.2.62           172.16.2.63      60/62                96.77%
+Management           172.16.2.64/27         255.255.255.224  0.0.0.31         172.16.2.65      172.16.2.65-172.16.2.94          172.16.2.95      20/30                66.67%
+P2P-HQ-A             172.16.2.96/30         255.255.255.252  0.0.0.3          172.16.2.97      172.16.2.97-172.16.2.98          172.16.2.99      2/2                  100.00%
+P2P-HQ-B             172.16.2.100/30        255.255.255.252  0.0.0.3          172.16.2.101     172.16.2.101-172.16.2.102        172.16.2.103     2/2                  100.00%
+P2P-A-B              172.16.2.104/30        255.255.255.252  0.0.0.3          172.16.2.105     172.16.2.105-172.16.2.106        172.16.2.107     2/2                  100.00%
+P2P-HQ-Colo          172.16.2.108/30        255.255.255.252  0.0.0.3          172.16.2.109     172.16.2.109-172.16.2.110        172.16.2.111     2/2                  100.00%
+
+VLSM justification:
+Root network 172.16.0.0/20 contains 4096 total addresses (4094 traditionally usable host addresses). The allocation contains 9 subnets, requesting 538 hosts and consuming 624 addresses (15.23% of the root address space). Overall host utilization is 88.78% of allocated usable addresses, with 68 allocated usable addresses remaining unused and 3472 root addresses unallocated.
+
+VLSM choice: 88.78% host utilization
+References: RFC 4632
+
+6. Architectural rationale log
+------------------------------
+1. [L1 media] Cat6a Copper (10GBASE-T)
+The 80 m run falls within the 100 m Ethernet copper channel distance limit specified by IEEE 802.3an (10GBASE-T). Cat6a provides a cost-effective solution for LAN access connectivity.
+2. [L1 media] OS2 Single-Mode Fiber (10GBASE-LR)
+The 3000 m run exceeds the 400 m multimode reach limit but remains within the 10,000 m reach limit of 10GBASE-LR over OS2 single-mode fiber. At 1310 nm, the assumed fiber attenuation is 0.4 dB/km. The fiber loss is approximately 1.20 dB. Against the 6.2 dB transceiver power budget, the remaining margin is 5.00 dB. Connector, splice, and engineering-margin losses must also be considered.
+3. [L1 media] OS2 Single-Mode Fiber (10GBASE-ER)
+The 15000 m run exceeds the 10,000 m reach limit of 10GBASE-LR but remains within the 40,000 m reach limit of 10GBASE-ER. At 1550 nm, the assumed fiber attenuation is 0.25 dB/km. The fiber loss is approximately 3.75 dB. Against the 10.9 dB transceiver power budget, the remaining margin is 7.15 dB. Connector, splice, and engineering-margin losses must also be considered.
+4. [L1 media] OS2 Single-Mode Fiber (10GBASE-ER)
+The 22000 m run exceeds the 10,000 m reach limit of 10GBASE-LR but remains within the 40,000 m reach limit of 10GBASE-ER. At 1550 nm, the assumed fiber attenuation is 0.25 dB/km. The fiber loss is approximately 5.50 dB. Against the 10.9 dB transceiver power budget, the remaining margin is 5.40 dB. Connector, splice, and engineering-margin losses must also be considered.
+5. [L1 media] OS2 Single-Mode Fiber (10GBASE-ER)
+The 35000 m run exceeds the 10,000 m reach limit of 10GBASE-LR but remains within the 40,000 m reach limit of 10GBASE-ER. At 1550 nm, the assumed fiber attenuation is 0.25 dB/km. The fiber loss is approximately 8.75 dB. Against the 10.9 dB transceiver power budget, the remaining margin is 2.15 dB. Connector, splice, and engineering-margin losses must also be considered.
+6. [Topology tier] Full-mesh site interconnect
+The network has 450 endpoints across 3 sites. A network with 450 endpoints across 3 sites requires 3 inter-site links in a full mesh. This topology provides direct connectivity between every pair of sites, reducing dependence on intermediate sites and supporting efficient inter-site communication. Direct inter-site connections improve path diversity and limit the impact of an individual inter-site link failure. Dual-homed resiliency provides redundant uplinks or network paths. Access switches should connect to independent distribution or collapsed-core devices where applicable. For multi-site topologies, redundant inter-site or WAN paths should be provisioned to maintain connectivity during individual link or device failures. The selected resiliency level is 'dual-homed'.
+7. [L3 routing] Multi-Area OSPF with Area 0 backbone
+The network has 9 subnets across 3 sites, does not use multiple cloud providers, and operates within 1 autonomous system. Multi-area OSPF is recommended to isolate routing domains while maintaining connectivity through the Area 0 backbone. Area boundaries support route summarization, reduce routing overhead, and improve scalability.
+8. [VLSM] 88.78% host utilization
+Root network 172.16.0.0/20 contains 4096 total addresses (4094 traditionally usable host addresses). The allocation contains 9 subnets, requesting 538 hosts and consuming 624 addresses (15.23% of the root address space). Overall host utilization is 88.78% of allocated usable addresses, with 68 allocated usable addresses remaining unused and 3472 root addresses unallocated.

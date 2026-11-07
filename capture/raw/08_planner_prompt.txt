@@ -1,0 +1,43 @@
+Write engine/planner.py for the NetArchitect project (Python 3.10+, standard library
+only). It combines the existing engines into one explainable report.
+
+Existing functions you must call (do not reimplement them):
+- engine.params.validate_params(params: dict) -> dict
+- engine.media.select_media(distance_m, requested_media=None) -> Decision
+- engine.topology.select_topology(endpoints, num_sites, resiliency) -> Decision
+- engine.routing.select_routing(num_subnets, num_sites, multi_cloud,
+  num_autonomous_systems=1) -> Decision
+- engine.vlsm.allocate_vlsm(root_cidr, requests) -> list[Subnet]
+- engine.vlsm.utilization_report(subnets, root_cidr) -> Decision
+- Decision (engine.explain) has fields: domain, choice, justification, references.
+- Subnet (engine.vlsm) has fields: name, network, prefix, mask, wildcard, first_host,
+  last_host, broadcast, gateway, requested_hosts, usable_hosts, efficiency_pct.
+
+The params dict has keys: profile, name, endpoints, root_cidr, resiliency,
+routing {num_sites, multi_cloud, num_autonomous_systems}, links [{name, distance_m}],
+subnets [{name, hosts}].
+
+Required design:
+- @dataclass LinkPlan with fields: name, distance_m, decision
+- @dataclass Plan with fields: params (the validated dict), link_plans (list of
+  LinkPlan, same order as params["links"]), topology (Decision), routing (Decision),
+  subnets (list[Subnet]), vlsm_report (Decision)
+- build_plan(params: dict) -> Plan. Calls validate_params first. Calls select_media
+  once per link, select_topology(endpoints, routing.num_sites, resiliency),
+  select_routing(len(subnets), num_sites, multi_cloud, num_autonomous_systems), then
+  allocate_vlsm and utilization_report. Must not modify the dict passed in. Errors from
+  the engines must propagate unchanged.
+- all_decisions(plan: Plan) -> list[Decision]. Order: one decision per link in link
+  order, then topology, then routing, then vlsm_report.
+- render_report(plan: Plan) -> str. Plain-text report (ASCII only) with numbered
+  sections: 1 Scenario summary (name, profile, endpoints, root prefix, resiliency);
+  2 Physical media per link (link name, distance in m, choice, full justification,
+  references); 3 Topology tier; 4 Routing protocol; 5 Address plan: a table with one
+  row per subnet (name, network/prefix, mask, wildcard, gateway, first-last host,
+  broadcast, requested vs usable hosts, efficiency %) followed by the VLSM
+  justification; 6 Architectural rationale log: every decision from all_decisions in
+  order, each as "[domain] choice" followed by its full justification.
+- Never wrap, truncate or rewrite justification text: print each justification string
+  exactly as the Decision contains it. The output must be deterministic.
+
+Reply with only the complete file in one code block.
