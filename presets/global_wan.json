@@ -3,7 +3,7 @@
   "name": "Global WAN",
   "endpoints": 2000,
   "root_cidr": "10.100.0.0/16",
-  "resiliency": "dual-homed",
+  "resiliency": "none",
   "routing": {"num_sites": 5, "multi_cloud": true, "num_autonomous_systems": 2},
   "links": [
     {"name": "City office access", "distance_m": 85},
