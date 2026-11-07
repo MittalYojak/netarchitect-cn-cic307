@@ -90,10 +90,11 @@ def mask_to_wildcard(mask: str) -> str:
     mask_int = ip_to_int(mask)
     inverse = (~mask_int) & 0xFFFFFFFF
 
-    # A valid subnet mask must contain contiguous leading one bits.
+    # A valid mask is contiguous 1s then 0s, so its inverse (the wildcard) is
+    # 0s then 1s: the bit pattern "10" must never appear in the wildcard.
     inverse_bits = format(inverse, "032b")
 
-    if "01" in inverse_bits:
+    if "10" in inverse_bits:
         raise InvalidParameterError(f"Invalid subnet mask: {mask!r}")
 
     return int_to_ip(inverse)
