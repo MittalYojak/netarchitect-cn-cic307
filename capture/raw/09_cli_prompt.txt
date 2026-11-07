@@ -1,0 +1,29 @@
+Write cli.py (in the repository root, next to the engine/ package) for the NetArchitect
+project. Python 3.10+, standard library only (argparse).
+
+Existing code you must use (do not reimplement):
+- engine.params: load_preset(name) -> dict, load_custom(path) -> dict
+- engine.planner: build_plan(params) -> Plan, render_report(plan) -> str
+- engine.media: select_media(distance_m, requested_media=None) -> Decision
+- engine.errors: NetArchitectError is the base class of all project errors
+  (PhysicalDistanceViolationError, AddressSpaceExhaustedError, InvalidParameterError)
+- Decision has fields domain, choice, justification, references (a list of strings).
+
+Define main(argv: list[str] | None = None) -> int and end the file with
+if __name__ == "__main__": sys.exit(main()). Use argparse subcommands (required):
+
+1. list: print the three preset names (campus_lan, metro_man, global_wan), one per line.
+2. plan: exactly one of --preset NAME or --custom FILE is required (mutually exclusive
+   group). Optional --out FILE. Build the plan, print render_report(plan) to stdout.
+   If --out is given, also write the same report to that file (UTF-8, create parent
+   directories) and print "Report written to <path>" afterwards.
+3. check-link: --distance FLOAT (required) and optional --media TEXT. Call
+   select_media(distance, media) and print the Decision: a line "Choice: <choice>",
+   a line "Justification: <justification>", and a line "References: <comma-separated>".
+
+Error handling: catch NetArchitectError in main, print
+"ERROR (<ExceptionClassName>): <message>" to stderr, print nothing to stdout, and
+return 2. Never show a traceback for these errors. Successful commands return 0.
+Do not call sys.exit anywhere except the __main__ guard (argparse's own exits are fine).
+
+Reply with only the complete file in one code block.
