@@ -1,0 +1,14 @@
+Device: Catalyst 2960-24TT-L, IOS 15.0(2)SE4 (Packet Tracer)
+Applied: exports/campus_lan/ACCESS-SW1.cfg
+Command rejected:
+switchport trunk encapsulation dot1q
+
+Error:
+% Invalid input detected at '^' marker.
+
+Cause: Catalyst 2960 supports IEEE 802.1Q trunking exclusively and does not support the encapsulation-selection command.
+
+Subsequent trunk commands were accepted.
+CORE-SW1 (3560) supports the encapsulation command.
+
+Shared responsibility: Original prompt requested identical trunk settings without accounting for platform-specific capabilities.

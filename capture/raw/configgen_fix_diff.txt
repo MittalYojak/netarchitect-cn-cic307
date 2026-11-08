@@ -1,0 +1,9 @@
+diff -r capture/raw/configs_before_fix/campus_lan_ACCESS-SW1.cfg capture/raw/configs_after_fix/campus_lan_ACCESS-SW1.cfg
+38d37
+<  switchport trunk encapsulation dot1q
+diff -r capture/raw/configs_before_fix/global_wan_ACCESS-SW1.cfg capture/raw/configs_after_fix/global_wan_ACCESS-SW1.cfg
+35d34
+<  switchport trunk encapsulation dot1q
+diff -r capture/raw/configs_before_fix/metro_man_ACCESS-SW1.cfg capture/raw/configs_after_fix/metro_man_ACCESS-SW1.cfg
+32d31
+<  switchport trunk encapsulation dot1q

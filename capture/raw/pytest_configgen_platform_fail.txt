@@ -1,0 +1,46 @@
+......................................FFF......                          [100%]
+================================== FAILURES ===================================
+______ test_access_switch_trunk_has_no_encapsulation_command[campus_lan] ______
+tests\test_configgen.py:241: in test_access_switch_trunk_has_no_encapsulation_command
+    assert "switchport trunk encapsulation" not in cfgs["ACCESS-SW1"]
+E   AssertionError: assert 'switchport ...ncapsulation' not in 'hostname AC...wn\n!\nend\n'
+E     
+E     'switchport trunk encapsulation' is contained here:
+E       e switch
+E        switchport trunk encapsulation dot1q
+E        switchport mode trunk
+E        switchport trunk allowed vlan 10,20,30,40,50,60,70
+E        switchport trunk native vlan 999...
+E     
+E     ...Full output truncated, use '-vv' to show
+______ test_access_switch_trunk_has_no_encapsulation_command[metro_man] _______
+tests\test_configgen.py:241: in test_access_switch_trunk_has_no_encapsulation_command
+    assert "switchport trunk encapsulation" not in cfgs["ACCESS-SW1"]
+E   AssertionError: assert 'switchport ...ncapsulation' not in 'hostname AC...wn\n!\nend\n'
+E     
+E     'switchport trunk encapsulation' is contained here:
+E       e switch
+E        switchport trunk encapsulation dot1q
+E        switchport mode trunk
+E        switchport trunk allowed vlan 10,20,30,40,50
+E        switchport trunk native vlan 999...
+E     
+E     ...Full output truncated, use '-vv' to show
+______ test_access_switch_trunk_has_no_encapsulation_command[global_wan] ______
+tests\test_configgen.py:241: in test_access_switch_trunk_has_no_encapsulation_command
+    assert "switchport trunk encapsulation" not in cfgs["ACCESS-SW1"]
+E   AssertionError: assert 'switchport ...ncapsulation' not in 'hostname AC...wn\n!\nend\n'
+E     
+E     'switchport trunk encapsulation' is contained here:
+E       e switch
+E        switchport trunk encapsulation dot1q
+E        switchport mode trunk
+E        switchport trunk allowed vlan 10,20,30,40,50,60
+E        switchport trunk native vlan 999...
+E     
+E     ...Full output truncated, use '-vv' to show
+=========================== short test summary info ===========================
+FAILED tests/test_configgen.py::test_access_switch_trunk_has_no_encapsulation_command[campus_lan]
+FAILED tests/test_configgen.py::test_access_switch_trunk_has_no_encapsulation_command[metro_man]
+FAILED tests/test_configgen.py::test_access_switch_trunk_has_no_encapsulation_command[global_wan]
+3 failed, 44 passed in 0.20s

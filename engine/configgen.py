@@ -1,8 +1,44 @@
+
 """Generate Cisco IOS switch configurations from a NetArchitect Plan."""
 
 from engine.errors import InvalidParameterError
 from engine.planner import Plan
 from engine.vlsm import Subnet, ip_to_int, int_to_ip
+
+
+# Device capabilities determine which platform-specific IOS commands
+# can be generated. 802.1Q-only platforms reject the encapsulation command.
+DEVICE_CAPABILITIES: dict[str, dict[str, bool]] = {
+    "CORE-SW1": {
+        "trunk_encapsulation_command": True,
+    },
+    "ACCESS-SW1": {
+        "trunk_encapsulation_command": False,
+    },
+}
+
+
+def _build_trunk_lines(device_name: str, vlan_list: str) -> list[str]:
+    """Build trunk configuration compatible with device capabilities."""
+    lines = [
+        "interface GigabitEthernet0/1",
+        " description Trunk uplink to distribution/core switch",
+    ]
+
+    if DEVICE_CAPABILITIES[device_name]["trunk_encapsulation_command"]:
+        lines.append(" switchport trunk encapsulation dot1q")
+
+    lines.extend(
+        [
+            " switchport mode trunk",
+            f" switchport trunk allowed vlan {vlan_list}",
+            " switchport trunk native vlan 999",
+            " switchport nonegotiate",
+            " no shutdown",
+        ]
+    )
+
+    return lines
 
 
 def generate_switch_configs(plan: Plan) -> dict[str, str]:
@@ -77,18 +113,6 @@ def generate_switch_configs(plan: Plan) -> dict[str, str]:
         None,
     )
 
-    # Build the shared trunk configuration.
-    trunk_lines = [
-        "interface GigabitEthernet0/1",
-        " description Trunk uplink to distribution/core switch",
-        " switchport trunk encapsulation dot1q",
-        " switchport mode trunk",
-        f" switchport trunk allowed vlan {vlan_list}",
-        " switchport trunk native vlan 999",
-        " switchport nonegotiate",
-        " no shutdown",
-    ]
-
     # ---------------------------------------------------------
     # CORE-SW1: Layer 3 switch configuration
     # ---------------------------------------------------------
@@ -131,7 +155,9 @@ def generate_switch_configs(plan: Plan) -> dict[str, str]:
         svi_lines.append(" no shutdown")
         core_blocks.append(svi_lines)
 
-    core_blocks.append(trunk_lines)
+    core_blocks.append(
+        _build_trunk_lines("CORE-SW1", vlan_list)
+    )
 
     # Management access-control list.
     if management is not None:
@@ -220,7 +246,9 @@ def generate_switch_configs(plan: Plan) -> dict[str, str]:
         )
 
     # Uplink trunk.
-    access_blocks.append(trunk_lines)
+    access_blocks.append(
+        _build_trunk_lines("ACCESS-SW1", vlan_list)
+    )
 
     # Access ports, one per LAN subnet.
     for index, (vlan_id, subnet) in enumerate(lan_subnets, start=1):

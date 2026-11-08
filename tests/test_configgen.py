@@ -232,3 +232,33 @@ def test_management_subnet_too_small_rejected():
     plan = custom_plan([{"name": "Users", "hosts": 50}, {"name": "Management", "hosts": 1}])
     with pytest.raises(InvalidParameterError):
         generate_switch_configs(plan)
+# ---------- platform compatibility (found in Packet Tracer verification) ----------
+
+@pytest.mark.parametrize("name", PRESETS)
+def test_access_switch_trunk_has_no_encapsulation_command(name):
+    """Catalyst 2960 is 802.1Q-only: Packet Tracer rejects this command."""
+    _, _, cfgs, _ = setup(name)
+    assert "switchport trunk encapsulation" not in cfgs["ACCESS-SW1"]
+
+
+@pytest.mark.parametrize("name", PRESETS)
+def test_core_switch_trunk_keeps_encapsulation_command_before_mode_trunk(name):
+    _, _, cfgs, _ = setup(name)
+    kids = find(cfgs["CORE-SW1"], "interface GigabitEthernet0/1")
+    assert "switchport trunk encapsulation dot1q" in kids
+    assert kids.index("switchport trunk encapsulation dot1q") < kids.index("switchport mode trunk")
+
+
+@pytest.mark.parametrize("name", PRESETS)
+def test_access_switch_trunk_keeps_remaining_hardening(name):
+    p, _, cfgs, _ = setup(name)
+    ids = [v for v, _ in lan_entries(p)]
+    kids = find(cfgs["ACCESS-SW1"], "interface GigabitEthernet0/1")
+    for line in (
+        "switchport mode trunk",
+        f"switchport trunk allowed vlan {csv(ids)}",
+        "switchport trunk native vlan 999",
+        "switchport nonegotiate",
+        "no shutdown",
+    ):
+        assert line in kids
