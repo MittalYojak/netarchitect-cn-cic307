@@ -177,31 +177,80 @@ References: IEEE 802.3an
 
 ## 6. Cisco IOS Configuration and Network Verification
 
-NetArchitect includes a switch configuration generator in `engine/configgen.py`.
+NetArchitect includes a Cisco IOS switch configuration generator in `engine/configgen.py`. It generates core and access switch configurations using the validated network plan produced by the planning engine.
 
-The generated Campus LAN switch configurations are available in:
+### A. Generated Configuration Exports
+
+Configurations are generated for all three predefined network profiles:
 
 ```text
-exports/campus_lan/
-├── CORE-SW1.cfg
-├── ACCESS-SW1.cfg
-└── campus_lan.pkt
+exports/
+├── campus_lan/
+│   ├── CORE-SW1.cfg
+│   ├── ACCESS-SW1.cfg
+│   └── campus_lan.pkt
+│
+├── metro_man/
+│   ├── CORE-SW1.cfg
+│   └── ACCESS-SW1.cfg
+│
+└── global_wan/
+    ├── CORE-SW1.cfg
+    └── ACCESS-SW1.cfg
 ```
 
-The Campus LAN topology was tested in Cisco Packet Tracer using a multilayer core switch, an access switch and end devices.
+Each profile produces two Cisco IOS switch configuration files:
+
+- **CORE-SW1:** Includes VLAN definitions, switched virtual interfaces (SVIs), inter-VLAN routing, management access-control lists (ACLs), trunk configuration and OSPF statements.
+- **ACCESS-SW1:** Includes VLAN definitions, management interface configuration, trunk settings and access-port assignments.
+
+The configurations are generated using the subnet allocations and network requirements of the selected preset.
+
+### B. Configuration Scope and Limitations
+
+The current configuration generator produces a common two-switch LAN configuration baseline for all three profiles.
+
+Although the Metro MAN and Global WAN presets contain multi-site network requirements, their generated configurations do not yet implement complete WAN deployments.
+
+The following capabilities remain outside the current configuration generator:
+
+- Site-specific router configurations and WAN interfaces.
+- eBGP and multi-area OSPF configuration.
+- IPsec VPN tunnel configuration.
+- EVPL service and WAN failover configuration.
+- Complete inter-site routing and cloud connectivity.
+
+The architecture planner independently evaluates routing and network requirements and provides recommendations. However, those recommendations should not be interpreted as fully deployed router configurations.
+
+### C. Packet Tracer Verification
+
+The Campus LAN configuration was tested in Cisco Packet Tracer using:
+
+- One multilayer core switch (Catalyst 3560).
+- One access switch (Catalyst 2960).
+- Two end devices.
 
 Verification included:
 
 - VLAN creation and assignment.
 - Trunk configuration and native VLAN verification.
+- Switched virtual interface (SVI) status.
 - Inter-VLAN connectivity.
-- Access to the management VLAN.
+- Management VLAN access restrictions.
 - Access-control list (ACL) enforcement.
 - End-to-end connectivity between PCs.
 
-A platform compatibility issue involving the `switchport trunk encapsulation dot1q` command on Catalyst 2960 switches was identified during Packet Tracer testing and corrected.
+A platform compatibility issue involving the `switchport trunk encapsulation dot1q` command on Catalyst 2960 switches was identified during testing and corrected through device-specific capability handling.
 
-Supporting screenshots and raw verification evidence are available in `capture/`.
+The corrected configurations were accepted in Packet Tracer, and connectivity and ACL behaviour were verified.
+
+Supporting screenshots and raw verification evidence are available in:
+
+```text
+capture/
+├── raw/
+└── screens/
+```
 
 ## 7. Testing
 
