@@ -43,10 +43,12 @@ def test_plan_output_equals_planner_report(capsys):
     assert out.strip() == render_report(build_plan(load_preset("metro_man"))).strip()
 
 
-def test_unknown_preset_is_clean_error(capsys):
-    code, out, err = run(["plan", "--preset", "nope"], capsys)
-    assert code == 2 and out == ""
-    assert "ERROR (InvalidParameterError)" in err
+def test_unknown_preset_is_rejected_cleanly(capsys):
+    # argparse `choices` rejects it before our own handler runs: exit 2, valid names listed
+    with pytest.raises(SystemExit) as e:
+        cli.main(["plan", "--preset", "nope"])
+    assert e.value.code == 2
+    err = capsys.readouterr().err
     assert "campus_lan" in err and "Traceback" not in err
 
 
