@@ -1,0 +1,67 @@
+Write engine/configgen.py for the NetArchitect project (Python 3.10+, standard library
+only, same conventions as the other modules). It generates Cisco IOS switch
+configurations from a Plan.
+
+Existing code (do not reimplement):
+- engine.planner.Plan: attributes params (the validated parameter dict) and subnets
+  (list of engine.vlsm.Subnet).
+- engine.vlsm.Subnet fields: name, network, prefix, mask, wildcard, first_host,
+  last_host, broadcast, gateway, requested_hosts, usable_hosts, efficiency_pct
+  (all addresses are dotted-quad strings).
+- engine.vlsm.ip_to_int and engine.vlsm.int_to_ip.
+- engine.errors.InvalidParameterError.
+
+Function: generate_switch_configs(plan) -> dict[str, str] with exactly two keys,
+"CORE-SW1" and "ACCESS-SW1". Each value is a complete, copy-paste-ready IOS
+configuration (ASCII only, one command per line, ends with "end" and a final newline).
+
+LAN subnets and VLAN ids:
+- LAN subnets are the entries of plan.params["subnets"] whose name does not start with
+  "P2P-" or "Tunnel-", in params order. Look up each one's Subnet object in plan.subnets
+  by name.
+- The i-th LAN subnet (i starting at 0) gets VLAN id 10*(i+1).
+- No LAN subnets, or more than 20 of them: raise InvalidParameterError.
+- The management subnet is the LAN subnet named exactly "Management" (it may not exist).
+- Use Subnet.gateway, Subnet.mask, Subnet.network and Subnet.wildcard exactly as given;
+  do not recompute masks or wildcards.
+
+Formatting: top-level commands start at column 0; sub-commands are indented by exactly
+one space; blocks are separated by a line containing only "!".
+
+CORE-SW1 (Layer 3 switch, e.g. Catalyst 3560), in this order:
+1. hostname CORE-SW1, no ip domain-lookup, ip routing
+2. spanning-tree mode rapid-pvst
+3. spanning-tree vlan <comma-separated ascending VLAN ids, no spaces> priority 4096
+4. vlan 999 with name BLACKHOLE-NATIVE
+5. for each LAN subnet: "vlan <id>" with child "name <subnet name>"
+6. for each LAN subnet: "interface Vlan<id>" with a description, "ip address <gateway>
+   <mask>" and "no shutdown"; if a Management subnet exists, every SVI except the
+   management one also gets "ip access-group PROTECT-MGMT in"
+7. trunk interface GigabitEthernet0/1: description, switchport trunk encapsulation dot1q,
+   switchport mode trunk, switchport trunk allowed vlan <comma-separated ascending LAN
+   VLAN ids, no spaces>, switchport trunk native vlan 999, switchport nonegotiate,
+   no shutdown
+8. if a Management subnet exists: "ip access-list extended PROTECT-MGMT" with a remark
+   line, then "deny ip any <mgmt network> <mgmt wildcard>", then "permit ip any any"
+9. router ospf 1 with router-id 1.1.1.1, "passive-interface default", and one
+   "network <network> <wildcard> area 0" line per LAN subnet
+10. end
+
+ACCESS-SW1 (Layer 2 switch, e.g. Catalyst 2960), in this order:
+1. hostname ACCESS-SW1, no ip domain-lookup
+2. spanning-tree mode rapid-pvst
+3. vlan 999 with name BLACKHOLE-NATIVE; for each LAN subnet "vlan <id>" with
+   "name <subnet name>"
+4. if a Management subnet exists: interface Vlan<mgmt id> with "ip address <second usable
+   host of the management subnet> <mgmt mask>" (the gateway plus one) and "no shutdown",
+   plus the top-level command "ip default-gateway <mgmt gateway>"; if the management
+   subnet has fewer than 3 usable hosts raise InvalidParameterError
+5. uplink interface GigabitEthernet0/1 with the same trunk settings as CORE-SW1 (allowed
+   vlan list = LAN VLAN ids only, native vlan 999, nonegotiate)
+6. one access port per LAN subnet, in LAN order: interface FastEthernet0/<i> (i from 1)
+   with a description, switchport mode access, switchport access vlan <id>,
+   spanning-tree portfast, spanning-tree bpduguard enable, no shutdown
+7. end
+
+The function must be deterministic and must not modify plan.
+Reply with only the complete file in one code block.
