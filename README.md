@@ -192,11 +192,13 @@ exports/
 │
 ├── metro_man/
 │   ├── CORE-SW1.cfg
-│   └── ACCESS-SW1.cfg
+│   ├── ACCESS-SW1.cfg
+│   └── metro_man.pkt
 │
 └── global_wan/
     ├── CORE-SW1.cfg
-    └── ACCESS-SW1.cfg
+    ├── ACCESS-SW1.cfg
+    └── global_wan.pkt
 ```
 
 Each profile produces two Cisco IOS switch configuration files:
@@ -224,33 +226,34 @@ The architecture planner independently evaluates routing and network requirement
 
 ### C. Packet Tracer Verification
 
-The Campus LAN configuration was tested in Cisco Packet Tracer using:
+All three generated switch-configuration profiles were loaded into Cisco Packet Tracer using a two-switch baseline topology:
 
 - One multilayer core switch (Catalyst 3560).
 - One access switch (Catalyst 2960).
 - Two end devices.
 
-Verification included:
-
+**Campus LAN verification included:**
 - VLAN creation and assignment.
 - Trunk configuration and native VLAN verification.
-- Switched virtual interface (SVI) status.
-- Inter-VLAN connectivity.
-- Management VLAN access restrictions.
-- Access-control list (ACL) enforcement.
-- End-to-end connectivity between PCs.
+- SVI status and inter-VLAN connectivity.
+- Management VLAN access restrictions and ACL enforcement.
 
-A platform compatibility issue involving the `switchport trunk encapsulation dot1q` command on Catalyst 2960 switches was identified during testing and corrected through device-specific capability handling.
+**Metro MAN verification included:**
+- VLAN and trunk configuration.
+- SVI status and inter-VLAN connectivity.
+- Management subnet protection through ACL enforcement.
 
-The corrected configurations were accepted in Packet Tracer, and connectivity and ACL behaviour were verified.
+**Global WAN verification included:**
+- Six VLANs and their gateway SVIs.
+- 802.1Q trunk operation and native VLAN verification.
+- Inter-VLAN connectivity between Delhi and Mumbai test endpoints.
+- Management subnet protection through ACL enforcement.
 
-Supporting screenshots and raw verification evidence are available in:
+A Catalyst 2960 compatibility issue involving `switchport trunk encapsulation dot1q` was identified and corrected through device-specific capability handling.
 
-```text
-capture/
-├── raw/
-└── screens/
-```
+**Verification scope:** Metro MAN and Global WAN testing validates their generated two-switch LAN baselines only. It does not demonstrate complete WAN deployment, inter-site routing, IPsec VPN, BGP, EVPL, cloud connectivity or WAN failover.
+
+Supporting Packet Tracer screenshots are available in `capture/screens/`, and simulation files are stored in their respective `exports/` directories.
 
 ## 7. Testing
 

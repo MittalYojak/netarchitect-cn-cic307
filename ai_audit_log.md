@@ -87,3 +87,30 @@ AI-generated code was reviewed and corrected through an iterative process. Test 
 - **Evidence:** `capture/screens/pt_access_show_interfaces_trunk.png`, `capture/screens/pt_core_show_interfaces_trunk.png` and `capture/screens/pt_core_acl_hits.png`.
 
 - **Outcome:** The Campus LAN configuration was successfully validated in Cisco Packet Tracer.
+
+### 5. Metro MAN — Packet Tracer Switch-Baseline Verification
+
+- **Topology tested:** One multilayer core switch (Catalyst 3560), one access switch (Catalyst 2960) and two end devices.
+- **Initial condition:** The Metro MAN Packet Tracer file was created from the Campus LAN simulation using Save As. Consequently, it inherited Campus VLANs, SVIs, ACL entries and access-port settings.
+- **Cleanup:** Removed obsolete Campus VLANs, SVIs and ACL configuration before applying the Metro MAN-generated switch configurations. Unused access ports were reset and shut down.
+- **Verification performed:** VLAN assignments, SVI status, trunk operation, native VLAN, inter-VLAN connectivity and management ACL enforcement.
+- **Observed results:** PC1 successfully reached its default gateway. Inter-VLAN communication between HQ and remote-user VLANs succeeded (4/4 packets on the repeated test). Access to the protected management interface was blocked, and the ACL deny counter increased.
+- **Integration observation:** During Packet Tracer configuration application, the ACL entry order required correction in the simulator. The final ACL order was verified as deny followed by permit. This was recorded as a simulator/configuration-application observation, not as a confirmed defect in the generated configuration file.
+- **Evidence:** `capture/screens/pt_metro_acl_block.png` and `capture/screens/pt_metro_acl_hits.png`.
+- **Scope limitation:** This verifies the generated two-switch LAN baseline only. EVPL, QoS, inter-site routing, WAN failover and complete Metro MAN deployment were not tested.
+
+### 6. Global WAN — Packet Tracer Switch-Baseline Verification
+
+- **Topology tested:** One multilayer core switch (Catalyst 3560), one access switch (Catalyst 2960) and two end devices.
+- **Initial condition:** The Global WAN Packet Tracer file inherited Campus LAN VLANs, SVIs, management ACL and access-port settings because it was created from the earlier simulation.
+- **Cleanup:** Removed obsolete Campus VLANs, SVIs, ACL and OSPF configuration from the core switch. Removed obsolete VLANs and management SVI from the access switch, reset the unused Fa0/7 port and retained the physical trunk connection.
+- **Configuration applied:** `exports/global_wan/CORE-SW1.cfg` and `exports/global_wan/ACCESS-SW1.cfg`.
+- **Verification performed:** VLAN creation, gateway SVI status, trunk operation, native VLAN, access-switch management SVI, default gateway, PC gateway reachability, inter-VLAN connectivity and management ACL enforcement.
+- **Observed results:**
+  - All six Global WAN VLANs and their core SVIs were present and operational.
+  - Core and access trunks operated with 802.1Q, native VLAN 999 and VLANs 10–60 allowed.
+  - PC1 reached its default gateway with 4/4 successful replies.
+  - PC1 communicated with PC2 across VLAN 10 and VLAN 20; the repeated ping achieved 4/4 successful replies.
+  - Traffic to the access-switch management IP was blocked. The ACL showed four matches on the deny rule and 19 matches on the permit rule at the time of inspection.
+- **Evidence:** `capture/screens/pt_global_trunk.png`, `capture/screens/pt_global_intervlan.png` and `capture/screens/pt_global_acl_hits.png`.
+- **Scope limitation:** This verifies the generated two-switch LAN baseline only. The complete four-city WAN, Cloud VPC connectivity, IPsec VPN, eBGP, multi-area OSPF and WAN failover were not deployed or tested.
