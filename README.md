@@ -268,7 +268,7 @@ python -m pytest -q
 **Latest recorded test result:**
 
 ```text
-377 passed in 0.65s
+377 passed
 ```
 
 The test suite covers parameter validation, subnet allocation, routing, topology, physical media selection, planning, CLI behaviour and switch configuration generation.
