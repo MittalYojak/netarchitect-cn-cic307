@@ -1,6 +1,7 @@
 # NetArchitect — Network Architecture Recommendation & Configuration Engine
 
 **Course:** Computer Networks (CIC-307)
+**Contributors:** -Yojak Mittal(06614802724) -Vatsal Tyagi(09814802724)
 **Language:** Python 3.10+
 **Project type:** CLI-based network planning and configuration tool
 
